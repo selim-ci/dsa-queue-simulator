@@ -1,0 +1,19 @@
+```
+# txt files for car data
+*.txt
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# editor stuff
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# os stuff
+.DS_Store
+Thumbs.db
