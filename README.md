@@ -85,9 +85,16 @@ animated window showing:
 - car counts for each lane
 - priority mode indicator
 
+
+
 ## references
 
 - used basic python queue implementation
 - round robin scheduling concept from OS
 - priority queue logic from assignment description
 - pygame for visualization
+
+Video
+https://github.com/user-attachments/assets/e4138bd9-c3b2-46ca-87c1-4c83d7151e44
+https://github.com/user-attachments/assets/9ba9177a-c821-4836-91e4-a39cf49f1f21
+
