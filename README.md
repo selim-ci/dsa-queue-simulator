@@ -4,24 +4,26 @@ implementation of traffic junction with queue for assignment 1
 
 ## What it does
 
-manages 4 lanes (AL2, BL2, CL2, DL2) with queue data structure. AL2 is priority lane that gets served first when more than 10 cars waiting.
+manages 4 lanes (AL2, BL2, CL2, DL2) with queue data structure. AL2 is priority lane that gets served first when more than 10 cars waiting. shows animated visual interface with traffic lights and cars.
 
 ## Files
 
 - `queue_stuff.py` - has queue class and car/lane classes
 - `gen_cars.py` - generates random cars and writes to files
-- `visual_sim.py` - main simulator that reads cars and processes them
+- `visual_sim.py` - animated simulator with pygame showing traffic junction
 
-## How to run
+## Requirements
 
 need python 3 and pygame
 
-### install pygame
+install pygame:
 ```
 pip install pygame
 ```
 
-### running
+## How to run
+
+### running both programs
 
 Terminal 1:
 ```
@@ -33,21 +35,9 @@ Terminal 2:
 python visual_sim.py
 ```
 
-Opens animated window showing traffic junction with lights and cars
-
-### running both programs
-
-Terminal 1:
-```
-python gen_cars.py
-```
-
-Terminal 2:
-```
-python sim.py
-```
-
 stop with ctrl+c
+
+opens window showing animated traffic junction with lights turning red/green and cars moving through
 
 ## Data Structures
 
@@ -67,12 +57,13 @@ stop with ctrl+c
 
 1. generator makes random cars every 2 sec
 2. writes car data to text files (a.txt, b.txt, c.txt, d.txt)
-3. simulator reads files each cycle
+3. visual simulator reads files each cycle
 4. checks if AL2 has >10 cars -> priority mode
 5. in priority mode serves AL2 until <5 cars
 6. in normal mode calculates average cars in lanes
 7. serves that many cars from current lane
 8. uses round robin to pick next lane
+9. displays everything with pygame - traffic lights, cars, counts
 
 ### Time Complexity
 
@@ -81,15 +72,22 @@ stop with ctrl+c
 - checking priority: O(1)
 - calculating average: O(n) where n=4 lanes
 - serving cars: O(m) where m=cars served
+- rendering: O(1) constant visual elements
 
 overall per cycle: O(n + m) = O(1) since n is constant 4
 
 ## Output
 
-shows bar graph of cars waiting in each lane and serves them based on algorithm
+animated window showing:
+- 4 lanes with traffic lights
+- blue rectangles = cars waiting
+- lights turn green when lane is being served
+- car counts for each lane
+- priority mode indicator
 
 ## references
 
 - used basic python queue implementation
 - round robin scheduling concept from OS
 - priority queue logic from assignment description
+- pygame for visualization
