@@ -1,16 +1,16 @@
 # Assignment 1 Report
 
 **Name:** Shaikh Abdullah Nepal 
-**Roll Number:** 46  
+**Roll Number:** 46 
 **Course:** COMP202 - Data Structure and Algorithms
 
 ---
 
 ## Summary of Work
 
-implemented traffic light simulation system using queue data structure. made 3 python files that work together - one generates cars randomly, one has queue implementation, and main simulator processes everything. AL2 lane becomes priority when more than 10 cars waiting.
+implemented traffic light simulation system using queue data structure. made 3 python files that work together - one generates cars randomly, one has queue implementation, and main visual simulator with pygame that shows animated traffic junction.
 
-system reads car data from text files and manages 4 lanes with different priorities. normal mode uses round robin but switches to priority mode automatically based on AL2 queue size.
+system reads car data from text files and manages 4 lanes with different priorities. normal mode uses round robin but switches to priority mode automatically based on AL2 queue size. visual interface shows traffic lights changing color and cars moving through junction in real time.
 
 ---
 
@@ -46,26 +46,28 @@ used list-based implementation where:
 ### gen_cars.py
 - `mk_car(f, ln)` - generate random car and write to file
 
-### sim.py
+### visual_sim.py
 - `rd_cars(idx)` - read cars from file into queue
-- `calc_serve()` - calculate average cars to serve
-- `nxt_ln()` - determine next lane to serve
-- `show()` - display current junction status
-- `proc()` - process one traffic light cycle
+- `calc()` - calculate average cars to serve
+- `nxt()` - determine next lane to serve
+- `drw()` - render visual interface with pygame showing traffic lights and cars
+- `proc()` - process one traffic light cycle and update display
 
 ---
 
 ## Algorithm
 
 ### Main Algorithm Logic
+
 ```
+initialize pygame window
 initialize 4 lanes with queues
 set AL2 as priority lane
 priority_mode = false
 current_lane = 0
 
-while running:
-    // read new cars
+while window open:
+    // read new cars every 2 seconds
     for each lane:
         read cars from file
         add to lane queue
@@ -79,21 +81,26 @@ while running:
     
     // determine cars to serve
     if priority_mode:
-        cars_to_serve = AL2.size
+        cars_to_serve = min(3, AL2.size)
     else:
         cars_to_serve = average(all_lanes)
     
-    // serve cars
+    // serve cars with animation
+    set traffic light to green for current lane
     for i in cars_to_serve:
         dequeue from current lane
-        simulate passing
+        update visual display
+        wait 0.3 seconds
     
     // next lane
     if not priority_mode:
         current_lane = (current_lane + 1) % 4
+    
+    render display at 30 FPS
 ```
 
 ### Priority Detection Algorithm
+
 ```
 check AL2 queue size
 if size > 10:
@@ -108,6 +115,7 @@ while in priority mode:
 ```
 
 ### Average Calculation
+
 ```
 total = 0
 count = 0
@@ -119,6 +127,15 @@ for each normal lane:
 average = ceiling(total / count)
 serve min(average, current_lane.size) cars
 ```
+
+### Visualization
+
+uses pygame to display:
+- traffic lights (red/green circles) for each lane
+- blue rectangles representing waiting cars
+- lane names and car counts
+- priority mode indicator
+- real-time updates at 30 FPS
 
 ---
 
@@ -141,23 +158,32 @@ serve min(average, current_lane.size) cars
 - Calculate average: **O(4)** = **O(1)** - fixed 4 lanes
 - Serve cars: **O(m × n)** - where m is cars served, n is queue size for dequeue operation
 
+**Visualization:**
+- Render display: **O(v)** - where v is number of visual elements (constant)
+- Update screen: **O(1)** - pygame flip operation
+
 ### Overall Complexity Per Cycle
+
 ```
 Read phase: O(k) where k = total new cars
 Process phase: O(1) priority check + O(1) average calc + O(m × n) serve cars
-Total: O(k + m × n)
+Render phase: O(v) where v is constant visual elements
+Total: O(k + m × n + v) ≈ O(m × n)
 ```
 
 In practical terms:
 - k is typically small (few cars per cycle)
 - m is bounded by average queue size (usually <10)
 - n is queue size (typically <20)
+- v is constant (fixed UI elements)
 
 **Overall complexity per cycle: O(n²)** in worst case, but **O(n)** in average case due to small queue sizes.
 
 ### Optimization Notes
 
 current implementation uses `pop(0)` which is O(n). could optimize to O(1) by using `collections.deque` but not done for simplicity and queue sizes are small so performance impact minimal.
+
+pygame rendering is efficient enough for this application with 30 FPS update rate.
 
 ---
 
@@ -168,7 +194,7 @@ GitHub Repository: https://github.com/selim-ci/dsa-queue-simulator.git
 Files:
 - queue_stuff.py - queue implementation
 - gen_cars.py - car generator
-- sim.py - main simulator
+- visual_sim.py - animated visual simulator with pygame
 - README.md - documentation
 
 ---
@@ -181,9 +207,6 @@ tested with:
 - empty lanes
 - all lanes with cars
 - priority mode transition
+- visual display and animation working correctly
 
-all scenarios work as expected based on assignment requirements.
-# final
-# final
-# final
-# final
+all scenarios work as expected based on assignment requirements. visualization clearly shows traffic lights changing and cars moving through junction.
