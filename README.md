@@ -10,7 +10,7 @@ manages 4 lanes (AL2, BL2, CL2, DL2) with queue data structure. AL2 is priority 
 
 - `queue_stuff.py` - has queue class and car/lane classes
 - `gen_cars.py` - generates random cars and writes to files
-- `sim.py` - main simulator that reads cars and processes them
+- `visual_sim.py` - main simulator that reads cars and processes them
 
 ## How to run
 
