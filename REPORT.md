@@ -210,3 +210,6 @@ tested with:
 - visual display and animation working correctly
 
 all scenarios work as expected based on assignment requirements. visualization clearly shows traffic lights changing and cars moving through junction.
+
+Video 
+ https://github.com/user-attachments/assets/e4138bd9-c3b2-46ca-87c1-4c83d7151e44 https://github.com/user-attachments/assets/9ba9177a-c821-4836-91e4-a39cf49f1f21
