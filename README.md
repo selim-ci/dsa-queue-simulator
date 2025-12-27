@@ -14,7 +14,26 @@ manages 4 lanes (AL2, BL2, CL2, DL2) with queue data structure. AL2 is priority 
 
 ## How to run
 
-need python 3
+need python 3 and pygame
+
+### install pygame
+```
+pip install pygame
+```
+
+### running
+
+Terminal 1:
+```
+python gen_cars.py
+```
+
+Terminal 2:
+```
+python visual_sim.py
+```
+
+Opens animated window showing traffic junction with lights and cars
 
 ### running both programs
 
